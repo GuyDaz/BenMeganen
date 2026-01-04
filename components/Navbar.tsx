@@ -1,15 +1,24 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Leaf, Newspaper, Sparkles } from 'lucide-react';
+import { Menu, X, Leaf, Newspaper, Sparkles, CloudSun } from 'lucide-react';
 import { NewsModal } from './NewsModal';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isNewsOpen, setIsNewsOpen] = useState(false);
+  const [temp, setTemp] = useState<number | null>(null);
   const location = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    // Quick fetch for navbar temperature (Tel Aviv default)
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=32.0853&longitude=34.7818&current=temperature_2m')
+      .then(res => res.json())
+      .then(data => setTemp(Math.round(data.current.temperature_2m)))
+      .catch(() => {});
+  }, []);
 
   const links = [
     { name: 'בית', path: '/' },
@@ -64,6 +73,15 @@ export const Navbar: React.FC = () => {
               ))}
               
               <div className="flex items-center gap-2 mr-4 border-r border-gray-200 pr-6">
+                
+                {/* Navbar Weather Widget */}
+                {temp !== null && (
+                  <div className="flex items-center gap-2 px-3 py-1 bg-gray-50 rounded-lg text-xs font-bold text-gray-500 border border-gray-100 ml-2">
+                    <CloudSun size={14} className="text-secondary" />
+                    <span>{temp}°C</span>
+                  </div>
+                )}
+
                 <button
                   onClick={() => setIsNewsOpen(true)}
                   className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-primary transition-colors font-medium"

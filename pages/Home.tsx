@@ -2,14 +2,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/Button';
-import { Check, MapPin, Clock, Sparkles } from 'lucide-react';
+import { Check, MapPin, Clock, Sparkles, CloudSun } from 'lucide-react';
 import { AIPlantDoctor } from '../components/AIPlantDoctor';
+import { WeatherAlert } from '../components/WeatherAlert';
 
 export const Home: React.FC = () => {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[600px] w-full flex items-center justify-center text-white">
+      <section className="relative h-[650px] w-full flex items-center justify-center text-white">
         <div className="absolute inset-0 overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1920&auto=format&fit=crop" 
@@ -20,12 +21,23 @@ export const Home: React.FC = () => {
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
-            בן המגנן: מגשימים לכם חלום ירוק
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg leading-tight">
+            בן המגנן: <span className="text-secondary">מגשימים לכם חלום ירוק</span>
           </h1>
-          <h2 className="text-xl md:text-3xl font-light mb-8 text-gray-100 drop-shadow-md">
-            שירותי גינון מקצועיים במרכז הארץ
+          <h2 className="text-xl md:text-2xl font-light mb-8 text-gray-100 drop-shadow-md">
+            שירותי גינון מקצועיים, אבחון AI וייעוץ חכם במרכז הארץ
           </h2>
+          
+          {/* Quick Weather Banner In Hero */}
+          <div className="mb-8 max-w-2xl mx-auto hidden md:block">
+             <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-1 inline-flex items-center gap-3 pr-4">
+                <div className="bg-secondary text-primary p-2 rounded-xl">
+                   <CloudSun size={20} />
+                </div>
+                <span className="text-sm font-medium">בדקו את המלצות ההשקיה שלנו להיום למטה</span>
+             </div>
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/catalog">
               <Button variant="secondary" className="text-lg px-8 py-4 w-full sm:w-auto">
@@ -38,6 +50,13 @@ export const Home: React.FC = () => {
               </Button>
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Live Updates Bar (Weather) */}
+      <section className="py-8 bg-white border-b border-gray-100 -mt-10 relative z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <WeatherAlert />
         </div>
       </section>
 
