@@ -1,0 +1,7 @@
+{
+  "name": "Ben HaMeganen",
+  "description": "Professional gardening services website in Hebrew (RTL). Features a service catalog, contact forms, and Firebase-ready structure.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
