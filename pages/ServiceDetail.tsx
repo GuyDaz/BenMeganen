@@ -1,8 +1,9 @@
+
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { SERVICES_DATA } from '../constants';
 import { Button } from '../components/Button';
-import { CheckCircle2, ChevronRight } from 'lucide-react';
+import { CheckCircle, ChevronRight } from 'lucide-react';
 
 export const ServiceDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -68,7 +69,7 @@ export const ServiceDetail: React.FC = () => {
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {service.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="text-primary mt-1 flex-shrink-0" size={20} />
+                    <CheckCircle className="text-primary mt-1 flex-shrink-0" size={20} />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}

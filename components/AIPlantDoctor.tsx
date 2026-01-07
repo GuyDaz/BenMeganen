@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from "@google/genai";
-import { Camera, Upload, Loader2, AlertCircle, CheckCircle2, Leaf, X, RefreshCw, Zap } from 'lucide-react';
+import { Camera, Upload, Loader2, AlertCircle, CheckCircle, Leaf, X, RefreshCw, Zap } from 'lucide-react';
 import { Button } from './Button';
 
 export const AIPlantDoctor: React.FC = () => {
@@ -244,7 +244,7 @@ export const AIPlantDoctor: React.FC = () => {
             <div className="bg-green-50 border border-secondary/30 p-6 rounded-3xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/10 rounded-full -mr-12 -mt-12" />
               <div className="flex items-center gap-3 mb-4 text-primary font-bold text-lg border-b border-secondary/20 pb-2">
-                <CheckCircle2 size={24} className="text-primary" />
+                <CheckCircle size={24} className="text-primary" />
                 <span>סיכום אבחון המומחה</span>
               </div>
               <div className="text-gray-800 leading-relaxed whitespace-pre-line assistant-font prose prose-green">

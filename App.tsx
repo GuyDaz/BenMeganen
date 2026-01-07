@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
@@ -9,6 +10,7 @@ import { Home } from './pages/Home';
 import { Catalog } from './pages/Catalog';
 import { ServiceDetail } from './pages/ServiceDetail';
 import { Contact } from './pages/Contact';
+import { EstimationTool } from './pages/EstimationTool';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
@@ -37,6 +39,7 @@ const App: React.FC = () => {
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/catalog/:slug" element={<ServiceDetail />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/estimation" element={<EstimationTool />} />
         </Routes>
       </Layout>
     </Router>

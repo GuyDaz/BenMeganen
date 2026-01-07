@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { X, Loader2, Newspaper, Calendar } from 'lucide-react';
 
 interface NewsItem {
@@ -48,77 +49,18 @@ const FALLBACK_NEWS: NewsItem[] = [
 export const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  
-  // Track if component is mounted to prevent state updates after unmount
-  const isMounted = useRef(false);
 
   useEffect(() => {
-    isMounted.current = true;
-    
     if (isOpen) {
       setLoading(true);
-      setError(false);
+      // Simulate network delay for better UX, but use local data to ensure reliability
+      const timer = setTimeout(() => {
+        setNews(FALLBACK_NEWS);
+        setLoading(false);
+      }, 600);
       
-      const fetchHebrewNews = async () => {
-        try {
-          // INSTRUCTION: Replace this with your key from https://gnews.io/
-          const API_KEY = "bc649b443d28b61bdb0e92bb9a7f1874"; 
-          
-          // Real API Call
-          // Query: Gardening OR Plants OR Agriculture, Language: Hebrew, Country: Israel
-          // We use encodeURIComponent for the query to handle Hebrew characters correctly in all browsers
-          const query = encodeURIComponent("גינון OR צמחים OR חקלאות");
-          const url = `https://gnews.io/api/v4/search?q=${query}&lang=he&country=il&max=5&apikey=${API_KEY}`;
-          
-          const response = await fetch(url);
-          
-          if (!response.ok) {
-            // Throw to catch block to load fallback
-            throw new Error(`Network response was not ok: ${response.status}`);
-          }
-
-          const data = await response.json();
-
-          if (!isMounted.current) return;
-
-          if (data.errors) {
-            throw new Error(data.errors[0]);
-          }
-
-          if (data.articles && data.articles.length > 0) {
-            const formattedNews = data.articles.map((article: any, index: number) => ({
-              id: index,
-              title: article.title,
-              body: article.description,
-              date: new Date(article.publishedAt).toLocaleDateString('he-IL'),
-              url: article.url
-            }));
-            setNews(formattedNews);
-          } else {
-             // If no articles found, use fallback
-             console.warn("No articles found in API, using fallback");
-             setNews(FALLBACK_NEWS);
-          }
-          
-          setLoading(false);
-        } catch (e) {
-          console.warn("News fetch error, switching to fallback data:", e);
-          if (isMounted.current) {
-            // Instead of showing error state, we show fallback data for better UX
-            setNews(FALLBACK_NEWS);
-            setError(false); // We handled it
-            setLoading(false);
-          }
-        }
-      };
-
-      fetchHebrewNews();
+      return () => clearTimeout(timer);
     }
-
-    return () => {
-      isMounted.current = false;
-    };
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -157,20 +99,6 @@ export const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
               <Loader2 size={48} className="animate-spin mb-4 text-secondary" />
               <p>טוען חדשות...</p>
             </div>
-          ) : error ? (
-            <div className="text-center py-12 text-red-500">
-              <p>אירעה שגיאה בטעינת החדשות.</p>
-              <button 
-                onClick={onClose} 
-                className="mt-4 text-primary underline hover:text-secondary"
-              >
-                סגור
-              </button>
-            </div>
-          ) : news.length === 0 ? (
-             <div className="text-center py-12 text-gray-500">
-              <p>לא נמצאו חדשות עדכניות כרגע.</p>
-            </div>
           ) : (
             <div className="space-y-4">
               {news.map((item) => (
@@ -189,10 +117,6 @@ export const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
                   </p>
                 </article>
               ))}
-              <div className="text-center pt-4 text-xs text-gray-400">
-                {/* Note: If using fallback, maybe don't show GNews credit, but it's fine for now */}
-                * החדשות והעדכונים באדיבות מקורות שונים
-              </div>
             </div>
           )}
         </div>

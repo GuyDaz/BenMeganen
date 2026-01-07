@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SERVICES_DATA } from '../constants';
@@ -9,10 +10,6 @@ export const Catalog: React.FC = () => {
   
   const handleShare = async (e: React.MouseEvent, service: Service) => {
     e.preventDefault();
-    
-    // Construct the URL for the specific service
-    // Using window.location.origin + pathname ensures we get the correct base path
-    // We append the hash path since we are using HashRouter
     const shareUrl = `${window.location.origin}${window.location.pathname}#/catalog/${service.slug}`;
     
     const shareData = {
@@ -25,11 +22,9 @@ export const Catalog: React.FC = () => {
       try {
         await navigator.share(shareData);
       } catch (err) {
-        // User cancelled or share failed
         console.debug('Share cancelled or failed:', err);
       }
     } else {
-      // Fallback for browsers that don't support navigator.share
       try {
         await navigator.clipboard.writeText(shareUrl);
         alert('הקישור הועתק ללוח!');
@@ -50,12 +45,9 @@ export const Catalog: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {SERVICES_DATA.map((service) => (
             <div key={service.id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow flex flex-col h-full border border-gray-100">
-              <div className="h-56 overflow-hidden relative group">
-                <img 
-                  src={service.image} 
-                  alt={service.title} 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
+              {/* Image Placeholder */}
+              <div className="h-56 bg-gray-200 flex items-center justify-center text-gray-400">
+                <span>{service.title}</span>
               </div>
               
               <div className="p-6 flex-1 flex flex-col">

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Leaf, Newspaper, Sparkles, CloudSun } from 'lucide-react';
+import { Menu, X, Leaf, Newspaper, Sparkles, CloudSun, Calculator } from 'lucide-react';
 import { NewsModal } from './NewsModal';
 
 export const Navbar: React.FC = () => {
@@ -23,6 +23,7 @@ export const Navbar: React.FC = () => {
   const links = [
     { name: 'בית', path: '/' },
     { name: 'קטלוג', path: '/catalog' },
+    { name: 'מחשבון מחיר', path: '/estimation' },
     { name: 'צור קשר', path: '/contact' },
   ];
 

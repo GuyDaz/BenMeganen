@@ -9,17 +9,8 @@ import { WeatherAlert } from '../components/WeatherAlert';
 export const Home: React.FC = () => {
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative h-[650px] w-full flex items-center justify-center text-white">
-        <div className="absolute inset-0 overflow-hidden">
-          <img 
-            src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1920&auto=format&fit=crop" 
-            alt="Beautiful Garden" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
-        </div>
-
+      {/* Hero Section - Image Replaced with Solid Color */}
+      <section className="relative h-[650px] w-full flex items-center justify-center text-white bg-primary">
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg leading-tight">
             בן המגנן: <span className="text-secondary">מגשימים לכם חלום ירוק</span>
